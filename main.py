@@ -36,3 +36,38 @@ def feature_search_demo(data):
         return
     print("Beginning search...")
     search_algorithm(data, features, choice, classifier)
+
+
+def search_algorithm(data, features, choice, classifier):
+    accuracy_decreased = False
+    res = features[:]
+    best_so_far_accuracy = 0
+    for i in range(data.shape[1] - 1):
+        if accuracy_decreased:
+            break
+        print(f'\n On the {i + 1}th level of the search tree')
+        feature_to_change_at_this_level = None
+        
+        features = res[:]
+        for k in range(data.shape[1] - 1):
+            if (choice == 1 and k+1 not in features) or (choice == 2 and k+1 in features):
+                print(f'Considering {"adding" if choice == 1 else "removing"} the {k + 1} feature')
+                features.append(k+1) if choice == 1 else features.remove(k+1)
+                classifier = Validator(data, features)
+                accuracy = classifier.validate()
+                print(f'Using feature(s) {features} accuracy is {accuracy * 100}%')
+
+                if accuracy > best_so_far_accuracy:
+                    best_so_far_accuracy = accuracy
+                    feature_to_change_at_this_level = k+1               
+                features.remove(k+1) if choice == 1 else features.append(k+1)
+
+        if feature_to_change_at_this_level is not None:
+            res.append(feature_to_change_at_this_level) if choice == 1 else res.remove(feature_to_change_at_this_level)
+            print(f'Feature set {res} was best, accuracy is {best_so_far_accuracy * 100}%')
+        else:
+            print("Accuracy has started to decrease... Hence ending the search ")
+            accuracy_decreased = True
+            break
+
+    print(f'\nFinished search!! The best feature subset is {res}, which has an accuracy of {best_so_far_accuracy * 100}%')
