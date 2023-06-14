@@ -89,3 +89,25 @@ class NN_Classifier:
         majority_label = max(set(labels), key=labels.count)  # Classify based on majority label of nearest neighbors
 
         return majority_label
+    
+class Validator:
+    """
+    A class to validate the performance of the nearest neighbors classifier
+    """
+    def __init__(self, data, feature_subset=None):
+        """
+        Initialize validator. If no subset of features is specified, use all features
+        """
+        self.data = data
+        if feature_subset is None:
+            self.feature_subset = list(range(1, self.data.shape[1]))  
+        else:
+            self.feature_subset = feature_subset
+        self.nn_classifier = NN_Classifier(self.data, self.feature_subset)  # Initialize the nearest neighbors classifier
+    
+    def validate(self):
+        """
+        Train the classifier and return the accuracy
+        """
+        accuracy = self.nn_classifier.train()  # Train the classifier and get the accuracy
+        return accuracy  # Return the accuracy of the classifier
