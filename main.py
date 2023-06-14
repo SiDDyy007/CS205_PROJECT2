@@ -71,3 +71,22 @@ def search_algorithm(data, features, choice, classifier):
             break
 
     print(f'\nFinished search!! The best feature subset is {res}, which has an accuracy of {best_so_far_accuracy * 100}%')
+
+
+def get_dataset_input():
+    print ("\nWhich dataset would you like to use?\n1. Small dataset(20) \n2. Large dataset(2)\n3. XXX Large Dataset(14)\n4. Real-World Dataset")
+    dataset_choice = input()
+    if dataset_choice == '1':
+        data = np.loadtxt(r'CS170_small_Data__20')
+        return data
+    elif dataset_choice == '2':
+        data = np.loadtxt(r'CS170_large_Data__2.txt')
+        return data
+    elif dataset_choice == '3':
+        data = np.loadtxt(r'CS170_XXXlarge_Data__14.txt')
+        return data
+    elif dataset_choice == '4':
+        data = np.loadtxt(r'XXX')
+        return data
+    else:
+        print("Invalid choice. Exiting the program....")
