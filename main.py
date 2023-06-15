@@ -77,7 +77,7 @@ def get_dataset_input():
     print ("\nWhich dataset would you like to use?\n1. Small dataset(20) \n2. Large dataset(2)\n3. XXX Large Dataset(14)\n4. Real-World Dataset")
     dataset_choice = input()
     if dataset_choice == '1':
-        data = np.loadtxt(r'CS170_small_Data__20')
+        data = np.loadtxt(r'CS170_small_Data__20.txt')
         return data
     elif dataset_choice == '2':
         data = np.loadtxt(r'CS170_large_Data__2.txt')
@@ -86,7 +86,14 @@ def get_dataset_input():
         data = np.loadtxt(r'CS170_XXXlarge_Data__14.txt')
         return data
     elif dataset_choice == '4':
-        data = np.loadtxt(r'XXX')
+        data = np.loadtxt(r'mobile_phone.txt')
         return data
     else:
         print("Invalid choice. Exiting the program....")
+
+def start():
+    print("Welcome to Siddhant's Feature Selection Algorithm:")
+    data = get_dataset_input()
+    feature_search_demo(data)
+            
+start()
